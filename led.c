@@ -2,10 +2,11 @@
   Copyright (C), 刘慧鹏
   FileName: led.c
   Author:刘慧鹏    Version :1.0    Date:2016/11/26
-  Description:主函数               // 模块描述     
-  Version:初始化工程               // 版本信息
+  Description:LED灯               // 模块描述     
+  Version:1.0                     // 版本信息
   Function List:   // 主要函数及其功能
-    1. -------
+    1. void led_init()      //初始化led灯GPIO
+    2. void led_XXX()       //控制LED通断。ON/OFF
   History:         // 历史修改记录
       <author>  <time>   <version>   <desc>
       David    96/10/12     1.0     build this moudle 
