@@ -12,6 +12,12 @@
 ***********************************************************/
 
 #include "include.h"
+extern volatile u32 time;
+
+#define digitalToggle(p,i)		{p->ODR ^=i;}			//输出反转状态
+#define LED1_TOGGLE		digitalToggle(GPIOA,GPIO_Pin_4)
+
+void run(void);
 
 void Delay(__IO uint32_t nCount)	 //简单的延时函数
 {
@@ -20,16 +26,26 @@ void Delay(__IO uint32_t nCount)	 //简单的延时函数
 
 int main()
 {
-    led_init();
+    led_init();                     //led初始化
+    TIM4_Configuration();           //配置定时器4
+	TIM4_NVIC_Configuration();      //设置定时器中断优先级
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , ENABLE);   
+                                    //TIM4重新开时钟，开始计时
     while(1)
     {
-        Delay(0x0FFFFF);
-        GPIO_SetBits(GPIOA, GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_15);
-        GPIO_SetBits(GPIOB, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
-        GPIO_SetBits(GPIOD, GPIO_Pin_2);
-        Delay(0x0FFFFF);
-        GPIO_ResetBits(GPIOA, GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_15);
-        GPIO_ResetBits(GPIOB, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
-        GPIO_ResetBits(GPIOD, GPIO_Pin_2);
+        run();
+    }
+}
+
+void run()
+{
+    if(time == 100)  //100ms
+    {
+        led_1SWL(ON);
+    }
+    if(time == 200)
+    {
+        led_1SWL(OFF);
+        time = 0;
     }
 }
