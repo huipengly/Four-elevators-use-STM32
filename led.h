@@ -22,7 +22,27 @@
 
 #include "stm32f10x_conf.h"
 
-void led_init(void);
+//定义ON/OFF控制LED开关
+#define ON  1
+#define OFF 0
 
+void led_init(void);
+void led_1SWL(int state);
+void led_2SWL(int state);
+void led_4DL(int state);
+void led_3SWL(int state);
+void led_4SWL(int state);
+void led_LIGHT(int state);
+void led_RUNL(int state);
+void led_DL(int state);
+void led_UL(int state);
+void led_CLOSEL(int state);
+void led_3UL(int state);
+void led_3DL(int state);
+void led_2UL(int state);
+void led_2DL(int state);
+void led_1UL(int state);
+void led_OPENL(int state);
+void led_STOPL(int state);
 
 #endif

@@ -60,5 +60,216 @@ void led_init()
     GPIO_ResetBits(GPIOA, GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_15);
     GPIO_ResetBits(GPIOB, GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);
     GPIO_ResetBits(GPIOD, GPIO_Pin_2);
+}
 
+/*************************************************
+  Function:     void led_XXX()
+  Description:  控制LED通断。ON/OFF
+  Calls:          // 被本函数调用的函数清单
+  Called By:      // 调用本函数的函数清单
+  Others:         // 其它说明
+*************************************************/
+
+void led_1SWL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_4);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_4);
+    }
+}
+
+void led_2SWL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_5);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_5);
+    }
+}
+
+void led_4DL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_8);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_8);
+    }
+}
+
+void led_3SWL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_11);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+    }
+}
+
+void led_4SWL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_12);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_12);
+    }
+}
+
+void led_LIGHT(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOA,GPIO_Pin_15);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,GPIO_Pin_15);
+    }
+}
+
+void led_RUNL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_2);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_2);
+    }
+}
+
+void led_DL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_3);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_3);
+    }
+}
+
+void led_UL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_4);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_4);
+    }
+}
+
+void led_CLOSEL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_5);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_5);
+    }
+}
+
+void led_3UL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_10);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_10);
+    }
+}
+
+void led_3DL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_11);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_11);
+    }
+}
+
+void led_2UL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_12);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_12);
+    }
+}
+
+void led_2DL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_13);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_13);
+    }
+}
+
+void led_1UL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_14);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_14);
+    }
+}
+
+void led_OPENL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOB,GPIO_Pin_15);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOB,GPIO_Pin_15);
+    }
+}
+
+void led_STOPL(int state)
+{
+    if(state)
+    {
+        GPIO_SetBits(GPIOD,GPIO_Pin_2);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOD,GPIO_Pin_2);
+    }
 }
