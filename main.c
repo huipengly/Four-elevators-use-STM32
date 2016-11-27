@@ -31,6 +31,7 @@ int main()
 	TIM4_NVIC_Configuration();      //设置定时器中断优先级
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , ENABLE);   
                                     //TIM4重新开时钟，开始计时
+    key_init();
     while(1)
     {
         run();
@@ -39,13 +40,9 @@ int main()
 
 void run()
 {
-    if(time == 100)  //100ms
+    if(time == 10)  //10ms
     {
-        led_1SWL(ON);
-    }
-    if(time == 200)
-    {
-        led_1SWL(OFF);
+        Key_Scan(GPIOC,GPIO_Pin_13);
         time = 0;
     }
 }

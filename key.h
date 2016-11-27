@@ -1,7 +1,7 @@
 /*************************************************
   Copyright (C), 刘慧鹏
-  File name:include.h
-  Author:刘慧鹏    Version :1.0    Date:2016/11/26
+  File name:key.h
+  Author:刘慧鹏    Version :1.0    Date:2016/11/27
   Description:    // 用于详细说明此程序文件完成的主要功能，与其他模块
                   // 或函数的接口，输出值、取值范围、含义及参数间的控
                   // 制、顺序、独立或依赖等关系
@@ -17,11 +17,23 @@
     2. ...
 *************************************************/
 
-#ifndef __INCLUDE_H
-#define __INCLUDE_H
+#ifndef __KEY_H
+#define __KEY_H
 
-#include "led.h"
-#include "timer.h"
-#include "key.h"
+#include <stm32f10x_conf.h>
+
+#define KEY_ON	0
+#define KEY_OFF	1
+
+enum key_states_e{
+	KEY_S1,
+	KEY_S2,
+	KEY_S3,
+	KEY_S4
+};
+
+void key_init(void);
+void Key_Scan(GPIO_TypeDef* GPIOx,u16 GPIO_Pin);
+
 
 #endif

@@ -394,6 +394,11 @@
               <FileType>1</FileType>
               <FilePath>.\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\key.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
