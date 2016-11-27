@@ -48,7 +48,7 @@ void TIM4_Configuration(void)
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 		
-	/* 设置TIM2CLK 为 72MHZ */
+	/* 设置TIM4CLK 为 72MHZ */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , ENABLE);
 	
 	/* 自动重装载寄存器周期的值(计数值) */
@@ -67,8 +67,8 @@ void TIM4_Configuration(void)
     TIM_ClearFlag(TIM4, TIM_FLAG_Update);
 	
     TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE);
-		
+
     TIM_Cmd(TIM4, ENABLE);																		
-    
+
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , DISABLE);		/*先关闭等待使用*/    
 }
