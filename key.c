@@ -20,7 +20,8 @@ void key_init()
 	/*开启按键端口（PC）的时钟*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13; 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6 \
+                                    |GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 
 	
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
@@ -37,7 +38,7 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
 	{
 		case KEY_S1:
             key_value_S1 = GPIO_ReadInputData(GPIOx);
-			if((key_value_S1 && (0xffff) != 0xffff))
+			if(((key_value_S1 & (0xffff)) != 0xffff))
 			{
                 key_state = KEY_S2;
 			}
@@ -50,6 +51,7 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
 			if( key_value_S1 == GPIO_ReadInputData(GPIOx) )
             {
 				key_state = KEY_S3;
+                key_short_press(key_value_S1);                      //短按少于500ms处理程序
 			}else
 				key_state = KEY_S1;
 
@@ -67,18 +69,12 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
 			}
 			else
             {
-                if(press < 50)
-                {
-                    key_short_press(key_value_S1);                   //短按少于500ms处理程序
-                    key_value_S1 = 0xffff;
-                }
 				key_state = KEY_S4;
             }
 
 			break;
 
 		case KEY_S4:
-            press = 0;
 			if(key_value_S1 == GPIO_ReadInputData(GPIOx))
             {
 				key_state = KEY_S2;
@@ -87,6 +83,8 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
             {
 				key_state = KEY_S1;
             }
+            press = 0;
+            key_value_S1 = 0xffff;
 			break;
 
 		default:
