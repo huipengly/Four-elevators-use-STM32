@@ -26,48 +26,67 @@ void key_init()
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 }
 
-void Key_Scan(GPIO_TypeDef* GPIOx,u16 GPIO_Pin)
+void Key_Scan(GPIO_TypeDef* GPIOx)
 {
 	static enum key_states_e key_state=KEY_S1;
 	static int press=0;
+    static uint32_t key_value_S1 = 0;
+//    static uint32_t key_value_S2 = 0xffff;
 
 	switch(key_state)
 	{
 		case KEY_S1:
-			if(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON)
-				{key_state = KEY_S2;
+            key_value_S1 = GPIO_ReadInputData(GPIOx);
+			if((key_value_S1 && (0xffff) != 0xffff))
+			{
+                key_state = KEY_S2;
 			}
 			else
 				key_state = KEY_S1;
 			break;
 
 		case KEY_S2:
-			if(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON){
-				key_state = KEY_S3;                 //短按处理程序
-                led_1SWL(ON);
+//            key_value_S2 = GPIO_ReadInputData(GPIOx);
+			if( key_value_S1 == GPIO_ReadInputData(GPIOx) )
+            {
+				key_state = KEY_S3;
 			}else
 				key_state = KEY_S1;
 
 			break;
 
 		case KEY_S3:
-			if(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON){
+			if(key_value_S1 == GPIO_ReadInputData(GPIOx))
+            {
 				key_state = KEY_S3;
 				press++;
-				if(press>50){
-                    led_1SWL(OFF);                  //长按200ms处理程序
+				if(press>50)
+                {
+                    key_long_press(key_value_S1);                  //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
 				}
 			}
 			else
+            {
+                if(press < 50)
+                {
+                    key_short_press(key_value_S1);                   //短按少于500ms处理程序
+                    key_value_S1 = 0xffff;
+                }
 				key_state = KEY_S4;
+            }
 
 			break;
 
 		case KEY_S4:
-			if(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON){
-				key_state = KEY_S1;
-				press = 0;
+            press = 0;
+			if(key_value_S1 == GPIO_ReadInputData(GPIOx))
+            {
+				key_state = KEY_S2;
 			}
+            else
+            {
+				key_state = KEY_S1;
+            }
 			break;
 
 		default:
@@ -75,4 +94,14 @@ void Key_Scan(GPIO_TypeDef* GPIOx,u16 GPIO_Pin)
 			press = 0;
 			break;
 	}
+}
+
+void key_short_press(uint32_t key_value)
+{
+    led_1SWL(ON);
+}
+
+void key_long_press(uint32_t key_value)
+{
+    led_1SWL(OFF);
 }

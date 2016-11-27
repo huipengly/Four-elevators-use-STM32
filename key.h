@@ -33,7 +33,8 @@ enum key_states_e{
 };
 
 void key_init(void);
-void Key_Scan(GPIO_TypeDef* GPIOx,u16 GPIO_Pin);
-
+void Key_Scan(GPIO_TypeDef* GPIOx);
+void key_short_press(uint32_t key_value);
+void key_long_press(uint32_t key_value);
 
 #endif
