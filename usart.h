@@ -1,7 +1,7 @@
 /*************************************************
   Copyright (C), 刘慧鹏
-  File name:include.h
-  Author:刘慧鹏    Version :1.0    Date:2016/11/26
+  File name:usart.h
+  Author:刘慧鹏    Version :1.0    Date:2016/11/28
   Description:    // 用于详细说明此程序文件完成的主要功能，与其他模块
                   // 或函数的接口，输出值、取值范围、含义及参数间的控
                   // 制、顺序、独立或依赖等关系
@@ -17,12 +17,11 @@
     2. ...
 *************************************************/
 
-#ifndef __INCLUDE_H
-#define __INCLUDE_H
+#ifndef __USART_H
+#define __USART_H
 
-#include "led.h"
-#include "timer.h"
-#include "key.h"
-#include "usart.h"
+#include <stdio.h>
+
+void usart1_init(void);
 
 #endif
