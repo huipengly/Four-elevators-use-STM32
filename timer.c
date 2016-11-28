@@ -14,13 +14,15 @@
 
 #include "include.h"
 
-volatile u32 time = 0;
+volatile u32 time_10ms = 0;
+volatile u32 time_100ms = 0;
 
 void TIM4_IRQHandler(void)
 {
 	if ( TIM_GetITStatus(TIM4 , TIM_IT_Update) != RESET ) 
 	{	
-		time++;
+		++time_10ms;
+        ++time_100ms;
 		TIM_ClearITPendingBit(TIM4 , TIM_FLAG_Update);  		 
 	}
 }

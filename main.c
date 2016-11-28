@@ -12,10 +12,11 @@
 ***********************************************************/
 
 #include "include.h"
-extern volatile u32 time;
+extern volatile u32 time_10ms;
+extern volatile u32 time_100ms;
 
 #define digitalToggle(p,i)		{p->ODR ^=i;}			//输出反转状态
-#define LED1_TOGGLE		digitalToggle(GPIOA,GPIO_Pin_4)
+#define LED1_TOGGLE		digitalToggle(GPIOA,GPIO_Pin_8)
 
 void run(void);
 
@@ -31,7 +32,8 @@ int main()
 	TIM4_NVIC_Configuration();      //设置定时器中断优先级
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , ENABLE);   
                                     //TIM4重新开时钟，开始计时
-    key_init();
+    key_init();                     //按键初始化
+//    usart1_init();                  //串口1初始化
     while(1)
     {
         run();
@@ -40,9 +42,26 @@ int main()
 
 void run()
 {
-    if(time == 10)  //10ms
+    if(time_10ms == 10)  //10ms
     {
         Key_Scan();
-        time = 0;
+        time_10ms = 0;
     }
+    
+//    if(time_100ms == 100)  //10ms
+//    {
+//        LED1_TOGGLE;
+//        time_100ms = 0;
+//    }
+
+//下面代码有bug，不知为什么 
+//    if((time%10) == 0)  //10ms
+//    {
+//        Key_Scan();
+//    }
+//    if(time == 100)
+//    {
+//        time = 1;
+//    }
+
 }
