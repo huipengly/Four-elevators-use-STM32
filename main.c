@@ -1,4 +1,4 @@
-/************************************************************
+﻿/************************************************************
   Copyright (C), 刘慧鹏
   FileName: main.c
   Author:刘慧鹏    Version :1.0    Date:2016/11/26
@@ -33,7 +33,7 @@ int main()
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4 , ENABLE);   
                                     //TIM4重新开时钟，开始计时
     key_init();                     //按键初始化
-//    usart1_init();                  //串口1初始化
+    usart1_init();                  //串口1初始化
     while(1)
     {
         run();
@@ -48,11 +48,11 @@ void run()
         time_10ms = 0;
     }
     
-//    if(time_100ms == 100)  //10ms
-//    {
-//        LED1_TOGGLE;
-//        time_100ms = 0;
-//    }
+    if(time_100ms == 100)  //100ms
+    {
+        LED1_TOGGLE;
+        time_100ms = 0;
+    }
 
 //下面代码有bug，不知为什么 
 //    if((time%10) == 0)  //10ms

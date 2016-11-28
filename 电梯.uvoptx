@@ -233,38 +233,6 @@
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>46</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>134221130</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫鍗曠墖鏈虹▼搴?main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\____\main.c\46</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>52</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>134221142</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫鍗曠墖鏈虹▼搴?main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\____\main.c\52</Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
-          <Type>0</Type>
           <LineNumber>268</LineNumber>
           <EnabledFlag>0</EnabledFlag>
           <Address>134220812</Address>
@@ -279,7 +247,7 @@
           <Expression>\\____\key.c\268</Expression>
         </Bp>
         <Bp>
-          <Number>5</Number>
+          <Number>3</Number>
           <Type>0</Type>
           <LineNumber>273</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -295,36 +263,36 @@
           <Expression>\\____\key.c\273</Expression>
         </Bp>
         <Bp>
-          <Number>6</Number>
+          <Number>4</Number>
           <Type>0</Type>
-          <LineNumber>215</LineNumber>
+          <LineNumber>52</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134219132</Address>
+          <Address>134221130</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫鍗曠墖鏈虹▼搴?key.c</Filename>
+          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫鍗曠墖鏈虹▼搴?main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\____\key.c\215</Expression>
+          <Expression>\\____\main.c\52</Expression>
         </Bp>
         <Bp>
-          <Number>7</Number>
+          <Number>5</Number>
           <Type>0</Type>
           <LineNumber>56</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134221142</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>.\main.c</Filename>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫鍗曠墖鏈虹▼搴?main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\____\main.c\56</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
