@@ -32,6 +32,7 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
 	static enum key_states_e key_state=KEY_S1;
 	static int press=0;
     static uint32_t key_value_S1 = 0;
+    static bool long_press_flag = false;               //长按只执行一次
 //    static uint32_t key_value_S2 = 0xffff;
 
 	switch(key_state)
@@ -62,9 +63,10 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
             {
 				key_state = KEY_S3;
 				press++;
-				if(press>50)
+				if((press>50) && (long_press_flag == false))        //仅执行一次长按操作
                 {
-                    key_long_press(key_value_S1);                  //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
+                    key_long_press(key_value_S1);                   //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
+                    long_press_flag = true;
 				}
 			}
 			else
@@ -85,6 +87,7 @@ void Key_Scan(GPIO_TypeDef* GPIOx)
             }
             press = 0;
             key_value_S1 = 0xffff;
+            long_press_flag = false;
 			break;
 
 		default:

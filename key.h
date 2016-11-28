@@ -22,6 +22,8 @@
 
 #include <stm32f10x_conf.h>
 
+#include <stdbool.h>
+
 #define KEY_ON	0
 #define KEY_OFF	1
 
