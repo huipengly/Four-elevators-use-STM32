@@ -42,7 +42,7 @@ void run()
 {
     if(time == 10)  //10ms
     {
-        Key_Scan(GPIOC);
+        Key_Scan();
         time = 0;
     }
 }
