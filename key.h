@@ -30,6 +30,23 @@
 #include <stm32f10x_conf.h>
 #include <stdbool.h>                        //bool量
 
+#define key_1SW     0xfffe
+#define key_2SW     0xfffd
+#define key_3SW     0xfffb
+#define key_4SW     0xfff7
+#define key_OPEN    0xffef
+#define key_CLOSE   0xffdf
+#define key_RUN     0xffbf
+#define key_STOP    0xff7f
+#define key_4DS     0xfeff
+#define key_3DS     0xfdff
+#define key_3US     0xfbff
+#define key_2DS     0xf7ff
+#define key_2US     0xefff
+#define key_1US     0xdfff
+#define key_DROUND  0xbfff
+#define key_DOPEN   0x7fff
+
 enum key_states_e{
 	KEY_S1,
 	KEY_S2,
