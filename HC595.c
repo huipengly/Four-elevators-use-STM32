@@ -5,15 +5,18 @@
   Description:HC595芯片驱动               // 模块描述
   Version:               // 版本信息
   Function List:   // 主要函数及其功能
-    1. void hc595_init(void)            //滴答定时器初始化
-    2. void hc595_write_byte(uint8_t byte)
-                                        //延时10us*nTime
+    1. void hc595_init(void)                //HC595初始化
+    2. void hc595_write_byte(uint8_t byte)  //HC595数据写入
+    3. void display(int32_t display_floor)  //共阴数码管显示楼层
   History:         // 历史修改记录
       <author>  <time>   <version>   <desc>
       David    96/10/12     1.0     build this moudle 
 ***********************************************************/
 
 #include "include.h"
+
+/*共阴数码管，A连接595的Q0口，DP连接Q7口*/
+const uint8_t number_code[4] = {0x60, 0xda, 0xf2, 0x66};
 
 void hc595_init(void)
 {
@@ -51,4 +54,9 @@ void hc595_write_byte(uint8_t byte)
 	}
     GPIO_ResetBits(GPIOB, HC595_RCLK);
     GPIO_SetBits(GPIOB, HC595_RCLK);
+}
+
+void display(int32_t display_floor)
+{
+    hc595_write_byte(number_code[display_floor - 1]);
 }

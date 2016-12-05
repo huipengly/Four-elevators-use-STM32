@@ -7,9 +7,9 @@
                   // 制、顺序、独立或依赖等关系
   Others:         // 其它内容的说明
   Function List:  // 主要函数列表，每条记录应包括函数名及功能简要说明
-    1. void hc595_init(void)            //滴答定时器初始化
-    2. void hc595_write_byte(uint8_t byte)
-                                        //延时10us*nTime
+    1. void hc595_init(void)                //HC595初始化
+    2. void hc595_write_byte(uint8_t byte)  //HC595数据写入
+    3. void display(int32_t display_floor)  //共阴数码管显示楼层
   History:        // 修改历史记录列表，每条修改记录应包括修改日期、修改
                   // 者及修改内容简述 
     1. Date:
@@ -31,5 +31,6 @@
 
 void hc595_init(void);
 void hc595_write_byte(uint8_t byte);
+void display(int32_t display_floor);
 
 #endif

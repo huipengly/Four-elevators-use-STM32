@@ -36,7 +36,8 @@ int main()
     usart1_init();                  //串口1初始化
     SysTick_Init();                 //滴答定时器初始化
     hc595_init();                   //hc595初始化
-//    hc595_write_byte(0xff);
+//    hc595_write_byte(0xaa);
+    display(4);
     while(1)
     {
 //        hc595_write_byte(0x00);
