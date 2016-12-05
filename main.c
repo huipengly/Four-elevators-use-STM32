@@ -34,14 +34,22 @@ int main()
                                     //TIM4重新开时钟，开始计时
     key_init();                     //按键初始化
     usart1_init();                  //串口1初始化
+    SysTick_Init();                 //滴答定时器初始化
+    hc595_init();                   //hc595初始化
+//    hc595_write_byte(0xff);
     while(1)
     {
+//        hc595_write_byte(0x00);
+//        Delay_ms(50);
+//        hc595_write_byte(0x08);
+//        Delay_ms(50);
         run();
     }
 }
 
 void run()
 {
+//    static uint32_t aa = 0xff;
     if(time_10ms == 10)  //10ms
     {
         Key_Scan();
@@ -50,6 +58,8 @@ void run()
     
     if(time_100ms == 100)  //100ms
     {
+//        aa = ~aa;
+//        hc595_write_byte(aa);
         LED1_TOGGLE;
         time_100ms = 0;
     }
