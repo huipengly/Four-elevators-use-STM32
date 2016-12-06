@@ -50,17 +50,21 @@ int main()
 
 void run()
 {
-//    static uint32_t aa = 0xff;
+    static uint32_t aa = 1;
     if(time_10ms == 10)  //10ms
     {
         Key_Scan();
         time_10ms = 0;
     }
     
-    if(time_100ms == 100)  //100ms
+    if(time_100ms == 1000)  //100ms
     {
 //        aa = ~aa;
 //        hc595_write_byte(aa);
+        display(aa);
+        aa++;
+        if(aa == 5)
+            aa = 1;
         LED1_TOGGLE;
         time_100ms = 0;
     }
