@@ -31,9 +31,9 @@
 #include <stdbool.h>                        //bool量
 
 #define key_1SW     0xfffe
-#define key_2SW     0xfffd
-#define key_3SW     0xfffb
-#define key_4SW     0xfff7
+#define key_2SW     0x7fff
+#define key_3SW     0xbfff
+#define key_4SW     0xdfff
 #define key_OPEN    0xffef
 #define key_CLOSE   0xffdf
 #define key_RUN     0xffbf
@@ -43,9 +43,9 @@
 #define key_3US     0xfbff
 #define key_2DS     0xf7ff
 #define key_2US     0xefff
-#define key_1US     0xdfff
-#define key_DROUND  0xbfff
-#define key_DOPEN   0x7fff
+#define key_1US     0xfff7
+#define key_DROUND  0xfffb
+#define key_DOPEN   0xfffd
 
 enum key_states_e{
 	KEY_S1,
@@ -55,12 +55,12 @@ enum key_states_e{
 };                                          //四种键盘状态，未按下，按下，保持按下，松开
 
 void key_init(void);                        //按键GPIO初始化
-void Key_Scan(void);                        //按键扫描
+void key_scan(void);                        //按键扫描
 void keyc_short_press(uint32_t key_value);  //GPIOC组按键短按处理程序
 void keyc_long_press(uint32_t key_value);   //GPIOC组按键长按处理程序
-void keyb8_short_press(void);               //GPIOB.8按键短按处理程序
-void keyb8_long_press(void);                //GPIOB.8按键长按处理程序
-void keyb9_short_press(void);               //GPIOB.9按键短按处理程序
-void keyb9_long_press(void);                //GPIOB.8按键长按处理程序
+void key_dfloor_short_press(void);               //GPIOB.8按键短按处理程序
+void key_dfloor_long_press(void);                //GPIOB.8按键长按处理程序
+void key_dclose_short_press(void);               //GPIOB.9按键短按处理程序
+void key_dclose_long_press(void);                //GPIOB.8按键长按处理程序
 
 #endif

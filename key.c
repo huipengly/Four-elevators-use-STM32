@@ -9,10 +9,10 @@
     2. void Key_Scan()                              //按键扫描
     3. void keyc_short_press(uint32_t key_value);   //GPIOC组按键短按处理程序
     4. void keyc_long_press(uint32_t key_value);    //GPIOC组按键长按处理程序
-    5. void keyb8_short_press(void);                //GPIOB.8按键短按处理程序
-    6. void keyb8_long_press(void);                 //GPIOB.8按键长按处理程序
-    7. void keyb9_short_press(void);                //GPIOB.9按键短按处理程序
-    8. void keyb9_long_press(void);                 //GPIOB.8按键长按处理程序
+    5. void key_dfloor_short_press(void);                //GPIOB.8按键短按处理程序
+    6. void key_dfloor_long_press(void);                 //GPIOB.8按键长按处理程序
+    7. void key_dclose_short_press(void);                //GPIOB.9按键短按处理程序
+    8. void key_dclose_long_press(void);                 //GPIOB.8按键长按处理程序
   History:         // 历史修改记录
       <author>  <time>   <version>   <desc>
       David    96/10/12     1.0     build this moudle 
@@ -46,33 +46,34 @@ void key_init()
 	
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
     
-    /*开启按键端口(GPIOB.8)的时钟*/
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);
+    /*开启按键端口(GPIOE.7)的时钟*/
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE,ENABLE);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;       //FT,5V容忍，浮空输入
 	
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
     
-    /*开启按键端口(GPIOB.9)的时钟*/
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+    /*开启按键端口(GPIOA.4)的时钟*/
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;               //上拉输入，按键之后接地
 	
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
-void Key_Scan()
+void key_scan()
 {
 	static enum key_states_e keyc_state=KEY_S1;         //GPIOC组IO状态
-	static enum key_states_e keyb8_state=KEY_S1;        //GPIOB.8状态    
-	static enum key_states_e keyb9_state=KEY_S1;        //GPIOB.9状态
+	static enum key_states_e key_dfloor_state=KEY_S1;   //dfloor状态    
+	static enum key_states_e key_dclose_state=KEY_S1;   //dclose状态
 	static int pressc = 0;                              //GPIOC组IO长按计数
-    static int pressb8 = 0;                             //GPIOB.8长按计数
-    static int pressb9 = 0;                             //GPIOB.9长按计数
+    static int press_dfloor = 0;                        //dfloor长按计数
+    static int press_dclose = 0;                        //dclose长按计数
     static uint32_t keyc_value_S1 = 0;                  //记录GPIOC组IO状态
     static bool long_press_flagc = false;               //长按函数执行标志，只执行一次
-    static bool long_press_flagb8 = false;
-    static bool long_press_flagb9 = false;
+    static bool long_press_flag_dfloor = false;
+    static bool long_press_flag_dclose = false;
 
     //以下扫描程序使用状态机，备注不好写，具体可参考以下链接
     //http://blog.csdn.net/lanmanck/article/details/8707957
@@ -137,121 +138,121 @@ void Key_Scan()
 			break;
 	}
     
-    /*GPIOB.8处理。接近开关处理，通常状态为1，接近金属为0*/
-    switch(keyb8_state)
+    /*GPIOE.7 dfloor处理。接近开关处理，通常状态为1，接近金属为0*/
+    switch(key_dfloor_state)
 	{
 		case KEY_S1:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_8) == 0)
+			if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_7) == 0)
 			{
-                keyb8_state = KEY_S2;
+                key_dfloor_state = KEY_S2;
 			}
 			else
-				keyb8_state = KEY_S1;
+				key_dfloor_state = KEY_S1;
 			break;
 
 		case KEY_S2:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_8) == 0)
+			if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_7) == 0)
             {
-				keyb8_state = KEY_S3;
-                keyb8_short_press();                      //短按少于500ms处理程序
+				key_dfloor_state = KEY_S3;
+                key_dfloor_short_press();                      //短按少于500ms处理程序
 			}else
-				keyb8_state = KEY_S1;
+				key_dfloor_state = KEY_S1;
 
 			break;
 
 		case KEY_S3:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_8) == 0)
+			if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_7) == 0)
             {
-				keyb8_state = KEY_S3;
-				pressb8++;
-				if((pressb8>50) && (long_press_flagb8 == false))        //仅执行一次长按操作
+				key_dfloor_state = KEY_S3;
+				press_dfloor++;
+				if((press_dfloor>50) && (long_press_flag_dfloor == false))        //仅执行一次长按操作
                 {
-                    keyb8_long_press();                   //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
-                    long_press_flagb8 = true;
+                    key_dfloor_long_press();                   //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
+                    long_press_flag_dfloor = true;
 				}
 			}
 			else
             {
-				keyb8_state = KEY_S4;
+				key_dfloor_state = KEY_S4;
             }
 
 			break;
 
 		case KEY_S4:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_8) == 0)
+			if(GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_7) == 0)
             {
-				keyb8_state = KEY_S2;
+				key_dfloor_state = KEY_S2;
 			}
             else
             {
-				keyb8_state = KEY_S1;
+				key_dfloor_state = KEY_S1;
             }
-            pressb8 = 0;
-            long_press_flagb8 = false;
+            press_dfloor = 0;
+            long_press_flag_dfloor = false;
 			break;
 
 		default:
-			keyb8_state = KEY_S1;
-			pressb8 = 0;
+			key_dfloor_state = KEY_S1;
+			press_dfloor = 0;
 			break;
 	}
     
-    /*GPIOB.9处理。接触开关处理，通常状态为1，闭合为0*/
-    switch(keyb9_state)
+    /*GPIOA.4 dclose处理。接触开关处理，通常状态为1，闭合为0*/
+    switch(key_dclose_state)
 	{
 		case KEY_S1:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_9) == 0)
+			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0)
 			{
-                keyb9_state = KEY_S2;
+                key_dclose_state = KEY_S2;
 			}
 			else
-				keyb9_state = KEY_S1;
+				key_dclose_state = KEY_S1;
 			break;
 
 		case KEY_S2:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_9) == 0)
+			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0)
             {
-				keyb9_state = KEY_S3;
-                keyb9_short_press();                      //短按少于500ms处理程序
+				key_dclose_state = KEY_S3;
+                key_dclose_short_press();                      //短按少于500ms处理程序
 			}else
-				keyb9_state = KEY_S1;
+				key_dclose_state = KEY_S1;
 
 			break;
 
 		case KEY_S3:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_9) == 0)
+			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0)
             {
-				keyb9_state = KEY_S3;
-				pressb9++;
-				if((pressb9>50) && (long_press_flagb9 == false))        //仅执行一次长按操作
+				key_dclose_state = KEY_S3;
+				press_dclose++;
+				if((press_dclose>50) && (long_press_flag_dclose == false))        //仅执行一次长按操作
                 {
-                    keyb9_long_press();                   //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
-                    long_press_flagb9 = true;
+                    key_dclose_long_press();                   //长按500ms处理程序,BUG：长按每次扫描都要执行长按程序，之后改
+                    long_press_flag_dclose = true;
 				}
 			}
 			else
             {
-				keyb9_state = KEY_S4;
+				key_dclose_state = KEY_S4;
             }
 
 			break;
 
 		case KEY_S4:
-			if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_9) == 0)
+			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4) == 0)
             {
-				keyb9_state = KEY_S2;
+				key_dclose_state = KEY_S2;
 			}
             else
             {
-				keyb9_state = KEY_S1;
+				key_dclose_state = KEY_S1;
             }
-            pressb9 = 0;
-            long_press_flagb9 = false;
+            press_dclose = 0;
+            long_press_flag_dclose = false;
 			break;
 
 		default:
-			keyb9_state = KEY_S1;
-			pressb9 = 0;
+			key_dclose_state = KEY_S1;
+			press_dclose = 0;
 			break;
 	}
 }
@@ -398,7 +399,7 @@ void keyc_long_press(uint32_t key_value)
     }
 }
 
-void keyb8_short_press()        //平层开关
+void key_dfloor_short_press()        //平层开关
 {
     if( up_down_flag == UP )
     {
@@ -408,20 +409,21 @@ void keyb8_short_press()        //平层开关
     {
         lift_floor -= 1;
     }
+    led_3SWL(ON);
 }
 
-void keyb8_long_press()
+void key_dfloor_long_press()
 {
-    
+    led_3SWL(OFF);
 }
 
-void keyb9_short_press()        //DCLOSE
+void key_dclose_short_press()        //DCLOSE
 {
     CLOSED = 1;
 //    led_3SWL(ON);
 }
 
-void keyb9_long_press()
+void key_dclose_long_press()
 {
 //    led_3SWL(OFF);
 }
