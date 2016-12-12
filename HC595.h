@@ -1,7 +1,7 @@
 /*************************************************
   Copyright (C), 刘慧鹏
   File name:HC595.h
-  Author:刘慧鹏    Version :1.0    Date:2016/12/04
+  Author:刘慧鹏    Version :2.0    Date:2016/12/12
   Description:    // 用于详细说明此程序文件完成的主要功能，与其他模块
                   // 或函数的接口，输出值、取值范围、含义及参数间的控
                   // 制、顺序、独立或依赖等关系
@@ -12,9 +12,9 @@
     3. void display(int32_t display_floor)  //共阴数码管显示楼层
   History:        // 修改历史记录列表，每条修改记录应包括修改日期、修改
                   // 者及修改内容简述 
-    1. Date:
-       Author:
-       Modification:
+    1. Date:2016/12/12
+       Author:刘慧鹏
+       Modification:根据V2.0板子修改595的I/O口，添加OE口
  
     2. ...
 *************************************************/
@@ -24,10 +24,12 @@
 
 #include "stm32f10x_conf.h"
 //74HC595
-//#define HC595_PORT  GPIOA
-#define HC595_DATA  GPIO_Pin_6      // serial data input, pin14
-#define HC595_SCLK  GPIO_Pin_7      // shift register clock input, pin11
-#define HC595_RCLK  GPIO_Pin_0      // storage register clock input, pin12
+//GPIOB
+#define HC595_SDI   GPIO_Pin_8      // serial data input
+#define HC595_OE    GPIO_Pin_9      // out enable
+//GPIOE
+#define HC595_SCLK  GPIO_Pin_1      // shift register clock input
+#define HC595_RCLK  GPIO_Pin_0      // storage register clock input
 
 void hc595_init(void);
 void hc595_write_byte(uint8_t byte);
