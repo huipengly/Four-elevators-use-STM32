@@ -1,7 +1,7 @@
 /*************************************************
   Copyright (C), 刘慧鹏
   File name:led.h
-  Author:刘慧鹏    Version :1.0    Date:2016/11/26
+  Author:刘慧鹏    Version :2.0    Date:2016/12/12
   Description:    // 用于详细说明此程序文件完成的主要功能，与其他模块
                   // 或函数的接口，输出值、取值范围、含义及参数间的控
                   // 制、顺序、独立或依赖等关系
@@ -10,9 +10,10 @@
     1. ....
   History:        // 修改历史记录列表，每条修改记录应包括修改日期、修改
                   // 者及修改内容简述 
-    1. Date:
-       Author:
-       Modification:
+    1. Date:2016/12/12
+       Author:刘慧鹏
+       Modification:根据V2.0板子修改I/O
+                    添加一个状态显示LED
  
     2. ...
 *************************************************/
@@ -44,5 +45,6 @@ void led_2DL(int state);
 void led_1UL(int state);
 void led_OPENL(int state);
 void led_STOPL(int state);
+void led_STATE(int state);
 
 #endif
