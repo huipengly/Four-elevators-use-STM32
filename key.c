@@ -1,7 +1,7 @@
 /************************************************************
   Copyright (C), 刘慧鹏
   FileName: key.c
-  Author:刘慧鹏    Version :1.1    Date:2016/11/28
+  Author:刘慧鹏    Version :2.0    Date:2016/12/12
   Description:LED灯               // 模块描述     
   Version:完成所有按键扫描，扫描之后的函数未做
   Function List:   // 主要函数及其功能
@@ -14,8 +14,8 @@
     7. void key_dclose_short_press(void);                //GPIOB.9按键短按处理程序
     8. void key_dclose_long_press(void);                 //GPIOB.8按键长按处理程序
   History:         // 历史修改记录
-      <author>  <time>   <version>   <desc>
-      David    96/10/12     1.0     build this moudle 
+      <author>  <time>      <version>   <desc>
+      刘慧鹏    2016/12/12  2.0          V2.0pcb版I/O修改
 ***********************************************************/
 
 #include "include.h"
