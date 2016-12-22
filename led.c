@@ -300,10 +300,10 @@ void led_STATE(int state)
 {
     if(state)
     {
-        GPIO_SetBits(GPIOE,GPIO_Pin_8);
+        GPIO_SetBits(GPIOE,GPIO_Pin_2);
     }
     else
     {
-        GPIO_ResetBits(GPIOE,GPIO_Pin_8);
+        GPIO_ResetBits(GPIOE,GPIO_Pin_2);
     }
 }
