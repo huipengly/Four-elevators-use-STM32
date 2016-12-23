@@ -206,34 +206,50 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>96</LineNumber>
+          <LineNumber>100</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221144</Address>
+          <Address>134223680</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?key.c</Filename>
+          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\____\key.c\96</Expression>
+          <Expression>\\____\lift.c\100</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>106</LineNumber>
+          <LineNumber>169</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221182</Address>
+          <Address>134223940</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?key.c</Filename>
+          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\____\key.c\106</Expression>
+          <Expression>\\____\lift.c\169</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>75</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134223572</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\____\lift.c\75</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -251,6 +267,56 @@
           <count>2</count>
           <WinNumber>1</WinNumber>
           <ItemText>pressb9,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lift_state</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lift_floor</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lift_state</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>up_down_flag</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>keyc_state</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>time_10ms,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>time_100ms,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>floor_detect</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lift_penal[floor_detect]</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>floor_penal[1][floor_detect-2]</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -403,7 +469,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>9</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\motor.c</PathWithFileName>

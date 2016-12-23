@@ -21,11 +21,17 @@
 #define __LIFT_H
 
 #include "stm32f10x_conf.h"
+#define STAY    2
 #define UP      1
 #define DOWN    0
+#define RUN     1
+#define STOP    0
 
+void lift_init(void);
 void lift(void);
 void lift_door(void);
 void lift_display(void);
+void lift_run(void);
+void lift_stop(void);
 
 #endif

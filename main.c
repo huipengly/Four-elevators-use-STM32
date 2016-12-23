@@ -14,11 +14,15 @@
 #include "include.h"
 extern volatile u32 time_10ms;
 extern volatile u32 time_100ms;
+extern int32_t lift_init_ok;            //电梯初始化标志位，0表示还未降到最底层，1表示降到最底层，初始化完成
+extern int32_t lift_floor;
+extern int32_t up_down_flag;            //0代表下降，1代表上升。
+extern int32_t lift_state;              //电梯运行状态,RUN/STOP
 
 #define digitalToggle(p,i)		{p->ODR ^=i;}			//输出反转状态
-#define LED1_TOGGLE		digitalToggle(GPIOA,GPIO_Pin_8)
+#define LED1_TOGGLE		digitalToggle(GPIOD,GPIO_Pin_11)
 
-void run(void);
+void run(void);  
 
 void Delay(__IO uint32_t nCount)	 //简单的延时函数
 {
@@ -35,37 +39,78 @@ int main()
     key_init();                     //按键初始化
     usart1_init();                  //串口1初始化
     SysTick_Init();                 //滴答定时器初始化
+    motor_init();                   //电机初始化
     hc595_init();                   //hc595初始化
-//    hc595_write_byte(0xaa);
-    display(4);
+//    lift_init();
+//    hc595_write_byte(0xff);
+//    display(0);
+//        led_UL(ON);
+//        led_DL(ON);
+//        led_UL(OFF);
+//        led_DL(OFF);
+//    led_1UL(ON);
+//    led_STATE(ON);
+//    printf("test\n");
+//    lift_down();
+//    led_LIGHT(ON);
     while(1)
     {
-//        hc595_write_byte(0x00);
-//        Delay_ms(50);
-//        hc595_write_byte(0x08);
-//        Delay_ms(50);
+//        led_UL(ON);
+//        led_DL(ON);
+//        Delay_ms(500);
+//        led_UL(OFF);
+//        led_DL(OFF);
+//        Delay_ms(500);
         run();
     }
 }
 
 void run()
 {
-    static uint32_t aa = 1;
-    if(time_10ms == 10)  //10ms
+//    static uint32_t aa = 1;
+    static uint32_t state = 1;
+    if(time_10ms >= 10)  //10ms
     {
-        Key_Scan();
+        key_scan();
         time_10ms = 0;
     }
     
-    if(time_100ms == 1000)  //100ms
+    if(time_100ms >= 100)  //100ms
     {
-//        aa = ~aa;
+        state = !state;
+        led_STATE(state);
+//        led_UL(state);
+//        led_DL(state);
 //        hc595_write_byte(aa);
-        display(aa);
-        aa++;
-        if(aa == 5)
-            aa = 1;
-        LED1_TOGGLE;
+//        display(aa);
+//        aa++;
+//        if(aa == 5)
+//            aa = 1;
+        if( RUN == lift_state )
+        {
+            if( 1 == lift_init_ok )
+            {
+                lift_motor_stop();
+                up_down_flag = UP;
+                lift_floor = 0;
+                lift_init_ok = 2;
+                lift_motor_up();
+            }
+            if((2 == lift_init_ok) && (1 == lift_floor))
+            {
+                lift_motor_stop();
+                lift_init_ok = 3;
+            }
+            if(3 == lift_init_ok)
+            {
+                lift();
+                display(lift_floor);
+            }
+        }
+        else 
+        {
+            display(0xff);
+        }
         time_100ms = 0;
     }
 
