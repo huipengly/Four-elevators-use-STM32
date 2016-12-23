@@ -37,6 +37,7 @@ void led_LIGHT(int state);
 void led_RUNL(int state);
 void led_DL(int state);
 void led_UL(int state);
+void led_up_down_state(void);
 void led_CLOSEL(int state);
 void led_3UL(int state);
 void led_3DL(int state);

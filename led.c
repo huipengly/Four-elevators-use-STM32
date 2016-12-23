@@ -14,6 +14,8 @@
 
 #include "include.h"
 
+extern int32_t up_down_flag;           //0代表下降，1代表上升，2代表停止。
+
 /*************************************************
   Function:     void led_init()
   Description:  初始化led灯GPIO
@@ -197,6 +199,25 @@ void led_UL(int state)
     else
     {
         GPIO_SetBits(GPIOB,GPIO_Pin_6);
+    }
+}
+
+void led_up_down_state(void)
+{
+    if(UP == up_down_flag)
+    {
+        led_UL(ON);
+        led_DL(OFF);
+    }
+    else if(DOWN == up_down_flag)
+    {
+        led_UL(OFF);
+        led_DL(ON);
+    }
+    else if(STAY == up_down_flag)
+    {
+        led_UL(OFF);
+        led_DL(OFF);
     }
 }
 
