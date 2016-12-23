@@ -82,72 +82,72 @@ void motor_init(void)
     pwm_config();
 }
 
-void lift_wait(void)
+void lift_motor_wait(void)
 {
     TIM2->CCR1 = 0;
     TIM2->CCR2 = 0;
     TIM2->CCR3 = 0;
     TIM2->CCR4 = 0;
-    Delay_ms(10);
+    Delay_us(200);
 }
 
-void lift_up(void)
+void lift_motor_up(void)
 {
-    lift_wait();
+    lift_motor_wait();
     TIM2->CCR1 = 900;
     TIM2->CCR2 = 0;
     TIM2->CCR3 = 0;
     TIM2->CCR4 = 900;
 }
 
-void lift_down(void)
+void lift_motor_down(void)
 {
-    lift_wait();
+    lift_motor_wait();
     TIM2->CCR1 = 0;
     TIM2->CCR2 = 900;
     TIM2->CCR3 = 900;
     TIM2->CCR4 = 0;
 }
 
-void lift_stop(void)
+void lift_motor_stop(void)
 {
-    lift_wait();
+    lift_motor_wait();
     TIM2->CCR1 = 1000;
     TIM2->CCR2 = 1000;
     TIM2->CCR3 = 0;
     TIM2->CCR4 = 0;
 }
 
-void door_wait(void)
+void door_motor_wait(void)
 {
     TIM3->CCR1 = 0;
     TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
     TIM3->CCR4 = 0;
-    Delay_ms(10);
+    Delay_us(200);
 }
 
-void door_open(void)
+void door_motor_open(void)
 {
-    door_wait();
+    door_motor_wait();
     TIM3->CCR1 = 900;
     TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
     TIM3->CCR4 = 900;
 }
 
-void door_close(void)
+void door_motor_close(void)
 {
-    door_wait();
+    door_motor_wait();
     TIM3->CCR1 = 0;
     TIM3->CCR2 = 900;
     TIM3->CCR3 = 900;
     TIM3->CCR4 = 0;
 }
 
-void door_stop(void)
+void door_motor_stop(void)
 {
-    door_wait();
+    door_motor_wait();
     TIM3->CCR1 = 1000;
     TIM3->CCR2 = 1000;
     TIM3->CCR3 = 0;

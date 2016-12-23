@@ -18,11 +18,11 @@
 void motor_gpio_init(void);
 void pwm_config(void);
 void motor_init(void);
-void lift_up(void);
-void lift_down(void);
-void lift_stop(void);
-void door_open(void);
-void door_close(void);
-void door_stop(void);
+void lift_motor_up(void);
+void lift_motor_down(void);
+void lift_motor_stop(void);
+void door_motor_open(void);
+void door_motor_close(void);
+void door_motor_stop(void);
 
 #endif
