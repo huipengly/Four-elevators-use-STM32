@@ -88,7 +88,7 @@ void lift_motor_wait(void)
     TIM2->CCR2 = 0;
     TIM2->CCR3 = 0;
     TIM2->CCR4 = 0;
-    Delay_us(200);
+    Delay_us(100);
 }
 
 void lift_motor_up(void)
@@ -118,13 +118,29 @@ void lift_motor_stop(void)
     TIM2->CCR4 = 0;
 }
 
+void lift_motor(int state)
+{
+    if(UP == state)
+    {
+        lift_motor_up();
+    }
+    if(DOWN == state)
+    {
+        lift_motor_down();
+    }
+    if(STAY == state)
+    {
+        lift_motor_stop();
+    }
+}
+
 void door_motor_wait(void)
 {
     TIM3->CCR1 = 0;
     TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
     TIM3->CCR4 = 0;
-    Delay_us(200);
+    Delay_us(100);
 }
 
 void door_motor_open(void)

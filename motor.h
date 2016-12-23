@@ -15,6 +15,10 @@
 #ifndef __MOTOR_H
 #define __MOTOR_H
 
+#define STAY    2
+#define UP      1
+#define DOWN    0
+
 void motor_gpio_init(void);
 void pwm_config(void);
 void motor_init(void);
@@ -24,5 +28,6 @@ void lift_motor_stop(void);
 void door_motor_open(void);
 void door_motor_close(void);
 void door_motor_stop(void);
+void lift_motor(int state);
 
 #endif
