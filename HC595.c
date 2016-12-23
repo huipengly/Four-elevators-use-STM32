@@ -16,7 +16,7 @@
 #include "include.h"
 
 /*共阴数码管，A连接595的Q0口，DP连接Q7口*/
-const uint8_t number_code[4] = {0x60, 0xda, 0xf2, 0x66};
+const uint8_t number_code[5] = {0xfd, 0x60, 0xda, 0xf2, 0x66};
 
 void hc595_init(void)
 {
@@ -56,5 +56,5 @@ void hc595_write_byte(uint8_t byte)
 
 void display(int32_t display_floor)
 {
-    hc595_write_byte(number_code[display_floor - 1]);
+    hc595_write_byte(number_code[display_floor]);
 }
