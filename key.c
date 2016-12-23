@@ -24,14 +24,16 @@ extern int32_t lift_penal[4];       //1SW/2SW/3SW/4SW
 extern int32_t floor_penal[2][4];   //1DS/2DS/3DS/4DS
                                     //1US/2US/3US/4US
 //extern int32_t state_penal[4];      //OPEN/CLOSE/RUN/STOP
-extern int32_t RUN;
-extern int32_t STOP;
+//extern int32_t RUN;
+//extern int32_t STOP;
 extern int32_t OPEN;
 extern int32_t OPENED;
 extern int32_t CLOSE;
 extern int32_t CLOSED;
 extern int32_t lift_floor;
-extern int32_t up_down_flag;              //0代表下降，1代表上升。
+extern int32_t up_down_flag;            //0代表下降，1代表上升。
+extern int32_t lift_init_ok;            //电梯初始化标志位，0表示还未降到最底层，1表示降到最底层，初始化完成
+extern int32_t lift_state;              //电梯运行状态,RUN/STOP
 
 void key_init()
 {
@@ -49,7 +51,7 @@ void key_init()
     /*开启按键端口(GPIOE.7)的时钟*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE,ENABLE);
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;       //FT,5V容忍，浮空输入
 	
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
@@ -259,72 +261,77 @@ void key_scan()
 
 void keyc_short_press(uint32_t key_value)
 {
-    switch(key_value)
+    if( RUN == lift_state )
     {
-        case key_1SW:
-            led_1SWL(ON);
-            lift_penal[0] = 1;
-            break;
-        case key_2SW:
-            led_2SWL(ON);
-            lift_penal[1] = 1;
-            break;
-        case key_3SW:
-            led_3SWL(ON);
-            lift_penal[2] = 1;
-            break;
-        case key_4SW:
-            led_4SWL(ON);
-            lift_penal[3] = 1;
-            break;
-        case key_OPEN:
-            led_OPENL(ON);
-            OPEN = 1;
-            break;
-        case key_CLOSE:
-            led_CLOSEL(ON);
-            CLOSE = 1;
-            break;
-        case key_RUN:
-            led_RUNL(ON);
-            RUN = 1;
-            break;
-        case key_STOP:
-            led_STOPL(ON);
-            STOP = 1;
-            break;
-        case key_4DS:
-            led_4DL(ON);
-            floor_penal[0][3] = 1;
-            break;
-        case key_3DS:
-            led_3DL(ON);
-            floor_penal[0][2] = 1;
-            break;
-        case key_3US:
-            led_3UL(ON);
-            floor_penal[1][2] = 1;
-            break;
-        case key_2DS:
-            led_2DL(ON);
-            floor_penal[0][1] = 1;
-            break;
-        case key_2US:
-            led_2UL(ON);
-            floor_penal[1][1] = 1;
-            break;
-        case key_1US:
-            led_1UL(ON);
-            floor_penal[1][0] = 1;
-            break;
-        case key_DROUND:
-            lift_floor = 0;
-            break;
-        case key_DOPEN:
-            OPENED = 1;
-            break;
-        default:
-            break;
+        switch(key_value)
+        {
+            case key_1SW:
+                led_1SWL(ON);
+                lift_penal[0] = 1;
+                break;
+            case key_2SW:
+                led_2SWL(ON);
+                lift_penal[1] = 1;
+                break;
+            case key_3SW:
+                led_3SWL(ON);
+                lift_penal[2] = 1;
+                break;
+            case key_4SW:
+                led_4SWL(ON);
+                lift_penal[3] = 1;
+                break;
+            case key_OPEN:
+                led_OPENL(ON);
+                OPEN = 1;
+                break;
+            case key_CLOSE:
+                led_CLOSEL(ON);
+                CLOSE = 1;
+                break;
+            case key_STOP:
+                lift_stop();
+                break;
+            case key_4DS:
+                led_4DL(ON);
+                floor_penal[0][3] = 1;
+                break;
+            case key_3DS:
+                led_3DL(ON);
+                floor_penal[0][2] = 1;
+            lift_motor_down();
+                break;
+            case key_3US:
+                led_3UL(ON);
+                floor_penal[1][2] = 1;
+            lift_motor_up();
+                break;
+            case key_2DS:
+                led_2DL(ON);
+                floor_penal[0][1] = 1;
+                break;
+            case key_2US:
+                led_2UL(ON);
+                floor_penal[1][1] = 1;
+                break;
+            case key_1US:
+                led_1UL(ON);
+                floor_penal[1][0] = 1;
+                break;
+            case key_DROUND:
+                lift_floor = 0;
+                lift_init_ok = 1;
+                break;
+            case key_DOPEN:
+                OPENED = 1;
+                break;
+            default:
+                break;
+        }
+    }
+    else if( (STOP == lift_state) && (key_RUN == key_value))
+    {
+        lift_run();
     }
 }
 
@@ -356,14 +363,14 @@ void keyc_long_press(uint32_t key_value)
             led_CLOSEL(OFF);
             CLOSE = 0;
             break;
-        case key_RUN:
-            led_RUNL(OFF);
-            RUN = 0;
-            break;
-        case key_STOP:
-            led_STOPL(OFF);
-            STOP = 0;
-            break;
+//        case key_RUN:
+//            led_RUNL(OFF);
+//            RUN = 0;
+//            break;
+//        case key_STOP:
+//            led_STOPL(OFF);
+//            STOP = 0;
+//            break;
         case key_4DS:
             led_4DL(OFF);
             floor_penal[0][3] = 0;
@@ -401,20 +408,55 @@ void keyc_long_press(uint32_t key_value)
 
 void key_dfloor_short_press()        //平层开关
 {
-    if( up_down_flag == UP )
+    if( RUN == lift_state )
     {
-        lift_floor += 1;
+        if( up_down_flag == UP )
+        {
+            lift_floor += 1;
+            lift_penal[lift_floor-1] = 0;
+            switch(lift_floor)
+            {
+                case 1:
+                    led_1SWL(OFF);
+                    break;
+                case 2:
+                    led_2SWL(OFF);
+                    break;
+                case 3:
+                    led_3SWL(OFF);
+                    break;
+                case 4:
+                    led_4SWL(OFF);
+                    break;
+            }
+        }
+        else if ( up_down_flag == DOWN )
+        {
+            lift_floor -= 1;
+            lift_penal[lift_floor-1] = 0;
+            switch(lift_floor)
+            {
+                case 1:
+                    led_1SWL(OFF);
+                    break;
+                case 2:
+                    led_2SWL(OFF);
+                    break;
+                case 3:
+                    led_3SWL(OFF);
+                    break;
+                case 4:
+                    led_4SWL(OFF);
+                    break;
+            }
+        }
     }
-    else if ( up_down_flag == DOWN )
-    {
-        lift_floor -= 1;
-    }
-    led_3SWL(ON);
+//    led_3SWL(ON);
 }
 
 void key_dfloor_long_press()
 {
-    led_3SWL(OFF);
+    
 }
 
 void key_dclose_short_press()        //DCLOSE
