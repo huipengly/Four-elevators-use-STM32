@@ -40,7 +40,7 @@ void led_init()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     
     /*选择引脚*/
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_11|GPIO_Pin_12;	
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_11|GPIO_Pin_12;	
     
     /*初始化GPIOA的引脚*/
     GPIO_Init(GPIOA, &GPIO_InitStructure);
