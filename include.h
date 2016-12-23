@@ -27,5 +27,6 @@
 #include "lift.h"
 #include "SysTick.h"
 #include "HC595.h"
+#include "motor.h"
 
 #endif
