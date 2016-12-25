@@ -30,22 +30,41 @@
 #include <stm32f10x_conf.h>
 #include <stdbool.h>                        //bool量
 
-#define key_1SW     0xfffe
-#define key_2SW     0x7fff
-#define key_3SW     0xbfff
-#define key_4SW     0xdfff
-#define key_OPEN    0xffef
-#define key_CLOSE   0xffdf
-#define key_RUN     0xffbf
-#define key_STOP    0xff7f
-#define key_4DS     0xfeff
-#define key_3DS     0xfdff
-#define key_3US     0xfbff
-#define key_2DS     0xf7ff
-#define key_2US     0xefff
-#define key_1US     0xfff7
-#define key_DROUND  0xfffb
-#define key_DOPEN   0xfffd
+//#define key_1SW     0xfffe
+//#define key_2SW     0x7fff
+//#define key_3SW     0xbfff
+//#define key_4SW     0xdfff
+//#define key_OPEN    0xffef
+//#define key_CLOSE   0xffdf
+//#define key_RUN     0xffbf
+//#define key_STOP    0xff7f
+//#define key_4DS     0xfeff
+//#define key_3DS     0xfdff
+//#define key_3US     0xfbff
+//#define key_2DS     0xf7ff
+//#define key_2US     0xefff
+//#define key_1US     0xfff7
+//#define key_DROUND  0xfffb
+//#define key_DOPEN   0xfffd
+
+#define key_1SW_gpio        GPIOC,GPIO_Pin_0
+#define key_2SW_gpio        GPIOC,GPIO_Pin_15
+#define key_3SW_gpio        GPIOC,GPIO_Pin_14
+#define key_4SW_gpio        GPIOC,GPIO_Pin_13
+#define key_OPEN_gpio       GPIOC,GPIO_Pin_4
+#define key_CLOSE_gpio      GPIOC,GPIO_Pin_5
+#define key_RUN_gpio        GPIOC,GPIO_Pin_6
+#define key_STOP_gpio       GPIOC,GPIO_Pin_7
+#define key_4DS_gpio        GPIOC,GPIO_Pin_8
+#define key_3DS_gpio        GPIOC,GPIO_Pin_9
+#define key_3US_gpio        GPIOC,GPIO_Pin_10
+#define key_2DS_gpio        GPIOC,GPIO_Pin_11
+#define key_2US_gpio        GPIOC,GPIO_Pin_12
+#define key_1US_gpio        GPIOC,GPIO_Pin_3
+#define key_DROUND_gpio     GPIOC,GPIO_Pin_2
+#define key_DOPEN_gpio      GPIOC,GPIO_Pin_1
+#define key_DFLOOR_gpio     GPIOE,GPIO_Pin_7
+#define key_DCLOSE_gpio     GPIOA,GPIO_Pin_4
 
 enum key_states_e{
 	KEY_S1,
@@ -62,5 +81,6 @@ void key_dfloor_short_press(void);               //GPIOB.8按键短按处理程�
 void key_dfloor_long_press(void);                //GPIOB.8按键长按处理程序
 void key_dclose_short_press(void);               //GPIOB.9按键短按处理程序
 void key_dclose_long_press(void);                //GPIOB.8按键长按处理程序
+void key_1SW_scan(void);
 
 #endif
