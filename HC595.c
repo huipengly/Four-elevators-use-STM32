@@ -28,7 +28,7 @@ void hc595_init(void)
     
 	GPIO_InitStructure.GPIO_Pin = HC595_SDI|HC595_OE;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	GPIO_ResetBits(GPIOB, HC595_SDI|HC595_OE);                    //开启芯片输出
+	GPIO_SetBits(GPIOB, HC595_SDI|HC595_OE);                    //开启芯片输出
     
 	GPIO_InitStructure.GPIO_Pin = HC595_SCLK|HC595_RCLK;
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
@@ -58,3 +58,14 @@ void display(int32_t display_floor)
 {
     hc595_write_byte(number_code[display_floor]);
 }
+
+void hc595_enable(void)
+{
+    GPIO_ResetBits(GPIOB, HC595_OE);
+}
+
+void hc595_disable(void)
+{
+    GPIO_SetBits(GPIOB, HC595_OE);
+}
+

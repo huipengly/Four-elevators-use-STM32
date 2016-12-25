@@ -34,5 +34,7 @@
 void hc595_init(void);
 void hc595_write_byte(uint8_t byte);
 void display(int32_t display_floor);
+void hc595_enable(void);
+void hc595_disable(void);
 
 #endif
