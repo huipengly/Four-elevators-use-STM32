@@ -23,5 +23,6 @@
 #include <stdio.h>
 
 void usart1_init(void);
+void send_state_to_pc(void);
 
 #endif

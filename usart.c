@@ -64,3 +64,57 @@ int fgetc(FILE *f)
 
     return (int)USART_ReceiveData(USART1);
 }
+
+/*发送给上位机电梯数据
+格式：开始标志#  运行 停止 1上 2上 2下 3上 3下 4下 1 2 3 4 
+      开电梯门 电梯门开启 关电梯门 电梯门关闭 up dowm arrive_flag  电梯层数 结束标志$;
+*/
+extern int32_t lift_state;              //电梯运行状态,RUN/STOP
+extern int32_t lift_penal[4];           //1SW/2SW/3SW/4SW
+extern int32_t floor_penal[2][4];       //1DS/2DS/3DS/4DS
+                                        //1US/2US/3US/4US
+extern int32_t door_open;               //开门信号    
+extern int32_t door_opened;             //门开启信号    
+extern int32_t door_close;              //关门信号
+extern int32_t door_closed;             //门关闭信号
+extern int32_t up_down_flag;            //0代表下降，1代表上升，2代表停止。
+extern int32_t lift_floor;              //记录当前电梯楼层
+void send_state_to_pc(void)
+{
+    printf("# ");
+    printf("%d ", lift_state);              //RUN
+    printf("%d ", !lift_state);             //STOP    
+    printf("%d ", floor_penal[1][0]);       //1US
+    printf("%d ", floor_penal[1][1]);       //2US
+    printf("%d ", floor_penal[0][1]);       //2DS
+    printf("%d ", floor_penal[1][2]);       //3US
+    printf("%d ", floor_penal[0][2]);       //3DS
+    printf("%d ", floor_penal[0][3]);       //4DS
+    printf("%d ", lift_penal[0]);           //1SW
+    printf("%d ", lift_penal[1]);           //2SW
+    printf("%d ", lift_penal[2]);           //3SW
+    printf("%d ", lift_penal[3]);           //4SW
+    printf("%d ", door_open);               //OPEN
+    printf("%d ", door_opened);             //OPEND
+    printf("%d ", door_close);              //CLOSE
+    printf("%d ", door_closed);             //CLOSE
+    if(UP == up_down_flag)
+    {
+        printf("%d ", 1);                   //UP
+    }
+    else
+    {
+        printf("%d ", 0);
+    }
+    printf("%d ", !up_down_flag);           //DOWN
+    if(WAIT == up_down_flag)
+    {
+        printf("%d ", 1);                   //WAIT
+    }
+    else
+    {
+        printf("%d ", 0);
+    }
+    printf("%d ", lift_floor);              //floor
+    printf("$");
+}
