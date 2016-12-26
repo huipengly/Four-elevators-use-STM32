@@ -30,23 +30,6 @@
 #include <stm32f10x_conf.h>
 #include <stdbool.h>                        //bool量
 
-//#define key_1SW     0xfffe
-//#define key_2SW     0x7fff
-//#define key_3SW     0xbfff
-//#define key_4SW     0xdfff
-//#define key_OPEN    0xffef
-//#define key_CLOSE   0xffdf
-//#define key_RUN     0xffbf
-//#define key_STOP    0xff7f
-//#define key_4DS     0xfeff
-//#define key_3DS     0xfdff
-//#define key_3US     0xfbff
-//#define key_2DS     0xf7ff
-//#define key_2US     0xefff
-//#define key_1US     0xfff7
-//#define key_DROUND  0xfffb
-//#define key_DOPEN   0xfffd
-
 #define key_1SW_gpio        GPIOC,GPIO_Pin_0
 #define key_2SW_gpio        GPIOC,GPIO_Pin_15
 #define key_3SW_gpio        GPIOC,GPIO_Pin_14

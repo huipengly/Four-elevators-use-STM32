@@ -41,7 +41,6 @@ int main()
     SysTick_Init();                 //滴答定时器初始化
     motor_init();                   //电机初始化
     hc595_init();                   //hc595初始化
-//    door_motor_close();
     while(1)
     {
         run();
@@ -51,7 +50,6 @@ int main()
 void run()
 {
     static uint32_t state = 1;
-//    static uint32_t stop_time = 0;
     if(time_10ms >= 10)  //10ms
     {
         time_10ms = 0;

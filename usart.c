@@ -97,7 +97,7 @@ void send_state_to_pc(void)
     printf("%d ", door_open);               //OPEN
     printf("%d ", door_opened);             //OPEND
     printf("%d ", door_close);              //CLOSE
-    printf("%d ", door_closed);             //CLOSE
+    printf("%d ", door_closed);             //CLOSED
     if(UP == up_down_flag)
     {
         printf("%d ", 1);                   //UP
