@@ -33,7 +33,7 @@ void motor_gpio_init(void)
     GPIO_Init(GPIOB, &GPIO_InitStructure);
     
     GPIO_ResetBits(GPIOA, GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_6 | GPIO_Pin_7);
-    GPIO_ResetBits(GPIOA, GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_6 | GPIO_Pin_7);
+    GPIO_ResetBits(GPIOB, GPIO_Pin_0 | GPIO_Pin_1);
 }
 
 void pwm_config(void)
@@ -146,18 +146,18 @@ void door_motor_wait(void)
 void door_motor_open(void)
 {
     door_motor_wait();
-    TIM3->CCR1 = 900;
+    TIM3->CCR1 = 500;
     TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
-    TIM3->CCR4 = 900;
+    TIM3->CCR4 = 500;
 }
 
 void door_motor_close(void)
 {
     door_motor_wait();
     TIM3->CCR1 = 0;
-    TIM3->CCR2 = 900;
-    TIM3->CCR3 = 900;
+    TIM3->CCR2 = 500;
+    TIM3->CCR3 = 500;
     TIM3->CCR4 = 0;
 }
 

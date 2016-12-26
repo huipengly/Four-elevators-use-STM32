@@ -60,7 +60,7 @@ void led_init()
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 	
 	/*选择引脚*/
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;	
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
     
     /*初始化GPIOD的引脚*/
     GPIO_Init(GPIOE, &GPIO_InitStructure);

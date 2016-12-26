@@ -206,9 +206,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>100</LineNumber>
+          <LineNumber>309</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134223680</Address>
+          <Address>134227090</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -217,39 +217,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\____\lift.c\100</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>169</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134223940</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\____\lift.c\169</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>75</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134223572</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\huipe\Desktop\鐢垫\鐢垫V2.0鍗曠墖鏈虹▼搴?lift.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\____\lift.c\75</Expression>
+          <Expression>\\____\lift.c\309</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -317,6 +285,11 @@
           <count>12</count>
           <WinNumber>1</WinNumber>
           <ItemText>floor_penal[1][floor_detect-2]</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pre_up_down_flag,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -433,7 +406,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\lift.c</PathWithFileName>
@@ -469,7 +442,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>9</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\motor.c</PathWithFileName>

@@ -27,10 +27,11 @@ extern int32_t floor_penal[2][4];   //1DS/2DS/3DS/4DS
 //extern int32_t state_penal[4];      //OPEN/CLOSE/RUN/STOP
 //extern int32_t RUN;
 //extern int32_t STOP;
-extern int32_t door_open;              //开门信号    
-extern int32_t door_opened;            //门开启信号    
-extern int32_t door_close;             //关门信号
-extern int32_t door_closed;            //门关闭信号
+extern int32_t door_open;               //开门信号    
+extern int32_t door_opened;             //门开启信号    
+extern int32_t door_close;              //关门信号
+extern int32_t door_closed;             //门关闭信号
+extern int32_t door_ground_flag;        //轿厢是否到最底层
 extern int32_t lift_floor;
 extern int32_t up_down_flag;            //0代表下降，1代表上升。
 extern int32_t lift_init_ok;            //电梯初始化标志位，0表示还未降到最底层，1表示降到最底层，初始化完成
@@ -753,6 +754,7 @@ void key_3DS_short_press()
 {
     led_3DL(ON);
     floor_penal[0][2] = 1;
+//    lift_motor_down();
 }
 
 void key_3DS_long_press()
@@ -829,6 +831,7 @@ void key_3US_short_press()
 {
     led_3UL(ON);
     floor_penal[1][2] = 1;
+//    lift_motor_up();
 }
 
 void key_3US_long_press()
@@ -1131,7 +1134,7 @@ void key_1US_scan(void)
 
 void key_DOPEN_short_press()
 {
-    
+    door_opened = 1;
 }
 
 void key_DOPEN_long_press()
@@ -1194,18 +1197,20 @@ void key_DOPEN_scan(void)
             }
             press_DOPEN = 0;
             long_press_flag_DOPEN = false;
+            door_opened = 0;
 			break;
 
 		default:
 			key_DOPEN_state = KEY_S1;
 			press_DOPEN = 0;
+            door_opened = 0;
 			break;
 	}
 }
 
 void key_DCLOSE_short_press()
 {
-    
+    door_closed = 1;
 }
 
 void key_DCLOSE_long_press()
@@ -1268,11 +1273,13 @@ void key_DCLOSE_scan(void)
             }
             press_DCLOSE = 0;
             long_press_flag_DCLOSE = false;
+            door_closed = 0;
 			break;
 
 		default:
 			key_DCLOSE_state = KEY_S1;
 			press_DCLOSE = 0;
+            door_closed = 0;
 			break;
 	}
 }
@@ -1284,42 +1291,42 @@ void key_DFLOOR_short_press()
         if( up_down_flag == UP )
         {
             lift_floor += 1;
-            lift_penal[lift_floor-1] = 0;
-            switch(lift_floor)
-            {
-                case 1:
-                    led_1SWL(OFF);
-                    break;
-                case 2:
-                    led_2SWL(OFF);
-                    break;
-                case 3:
-                    led_3SWL(OFF);
-                    break;
-                case 4:
-                    led_4SWL(OFF);
-                    break;
-            }
+//            lift_penal[lift_floor-1] = 0;
+//            switch(lift_floor)
+//            {
+//                case 1:
+//                    led_1SWL(OFF);
+//                    break;
+//                case 2:
+//                    led_2SWL(OFF);
+//                    break;
+//                case 3:
+//                    led_3SWL(OFF);
+//                    break;
+//                case 4:
+//                    led_4SWL(OFF);
+//                    break;
+//            }
         }
         else if ( up_down_flag == DOWN )
         {
             lift_floor -= 1;
-            lift_penal[lift_floor-1] = 0;
-            switch(lift_floor)
-            {
-                case 1:
-                    led_1SWL(OFF);
-                    break;
-                case 2:
-                    led_2SWL(OFF);
-                    break;
-                case 3:
-                    led_3SWL(OFF);
-                    break;
-                case 4:
-                    led_4SWL(OFF);
-                    break;
-            }
+//            lift_penal[lift_floor-1] = 0;
+//            switch(lift_floor)
+//            {
+//                case 1:
+//                    led_1SWL(OFF);
+//                    break;
+//                case 2:
+//                    led_2SWL(OFF);
+//                    break;
+//                case 3:
+//                    led_3SWL(OFF);
+//                    break;
+//                case 4:
+//                    led_4SWL(OFF);
+//                    break;
+//            }
         }
     }
 }
@@ -1395,7 +1402,7 @@ void key_DFLOOR_scan(void)
 
 void key_DROUND_short_press()
 {
-    
+    door_ground_flag = 1;       //电梯到最底层
 }
 
 void key_DROUND_long_press()
@@ -1457,12 +1464,14 @@ void key_DROUND_scan(void)
 				key_DROUND_state = KEY_S1;
             }
             press_DROUND = 0;
+            door_ground_flag = 0;
             long_press_flag_DROUND = false;
 			break;
 
 		default:
 			key_DROUND_state = KEY_S1;
 			press_DROUND = 0;
+            door_ground_flag = 0;
 			break;
 	}
 }

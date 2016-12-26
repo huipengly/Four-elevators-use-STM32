@@ -41,87 +41,96 @@ int main()
     SysTick_Init();                 //滴答定时器初始化
     motor_init();                   //电机初始化
     hc595_init();                   //hc595初始化
-//    lift_init();
-//    hc595_write_byte(0xff);
-//    display(0);
-//        led_UL(ON);
-//        led_DL(ON);
-//        led_UL(OFF);
-//        led_DL(OFF);
-//    led_1UL(ON);
-//    led_STATE(ON);
-//    printf("test\n");
-//    lift_down();
-//    led_LIGHT(ON);
+//    door_motor_close();
     while(1)
     {
-//        led_UL(ON);
-//        led_DL(ON);
-//        Delay_ms(500);
-//        led_UL(OFF);
-//        led_DL(OFF);
-//        Delay_ms(500);
         run();
     }
 }
 
 void run()
 {
-//    static uint32_t aa = 1;
     static uint32_t state = 1;
+//    static uint32_t stop_time = 0;
     if(time_10ms >= 10)  //10ms
     {
         key_scan();
         time_10ms = 0;
     }
     
-    if(time_100ms >= 100)  //100ms
+    if(time_100ms >= 100)
     {
         state = !state;
         led_STATE(state);
-//        led_UL(state);
-//        led_DL(state);
-//        hc595_write_byte(aa);
-//        display(aa);
-//        aa++;
-//        if(aa == 5)
-//            aa = 1;
-        if( RUN == lift_state )
-        {
-            if( 1 == lift_init_ok )
-            {
-                lift_motor_stop();
-                up_down_flag = UP;
-                lift_floor = 0;
-                lift_init_ok = 2;
-                lift_motor_up();
-            }
-            if((2 == lift_init_ok) && (1 == lift_floor))
-            {
-                lift_motor_stop();
-                lift_init_ok = 3;
-            }
-            if(3 == lift_init_ok)
-            {
-                lift();
-                display(lift_floor);
-            }
-        }
-        else 
-        {
-            display(0xff);
-        }
+        lift();
         time_100ms = 0;
     }
-
-//下面代码有bug，不知为什么 
-//    if((time%10) == 0)  //10ms
+    
+//    if(time_100ms >= 100)  //100ms
 //    {
-//        Key_Scan();
-//    }
-//    if(time == 100)
-//    {
-//        time = 1;
+//        state = !state;
+//        led_STATE(state);
+////        led_UL(state);
+////        led_DL(state);
+////        hc595_write_byte(aa);
+////        display(aa);
+////        aa++;
+////        if(aa == 5)
+////            aa = 1;
+//        if( RUN == lift_state )
+//        {
+//            if( 1 == lift_init_ok )
+//            {
+//                lift_motor_stop();
+//                up_down_flag = UP;
+//                lift_floor = 0;
+//                lift_init_ok = 2;
+//                lift_motor_up();
+//            }
+//            if((2 == lift_init_ok) && (1 == lift_floor))
+//            {
+//                lift_motor_stop();
+//                lift_init_ok = 3;
+//            }
+//            if(3 == lift_init_ok)
+//            {
+//                lift();
+//                display(lift_floor);
+//            }
+//            if(4 == lift_init_ok)
+//            {
+//                //当平层时进入状态4
+//                lift_motor_stop();//停止电梯,开门，开定时器，lift_init_ok变为5
+//                stop_time = 0;
+//                lift_init_ok = 5;
+//                door_motor_open();
+//            }
+//            if(5 == lift_init_ok)
+//            {
+////                if(1 == OPENED)
+////                {
+////                    door_motor_stop();
+////                    lift_init_ok = 6;
+////                }
+//            }
+//            if(6 == lift_init_ok)
+//            {
+////                stop_time++;
+////                if((20 <= stop_time) && (1 == CLOSED))
+////                {
+////                    lift_init_ok = 3;
+////                }
+////                else if(20 <= stop_time)//2s之后关门，关门完成之后返回状态3
+////                {
+////                    door_motor_close();
+////                }
+//            }
+//        }
+//        else 
+//        {
+//            display(0xff);
+//        }
+//        time_100ms = 0;
 //    }
 
 }

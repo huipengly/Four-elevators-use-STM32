@@ -21,11 +21,23 @@
 #define __LIFT_H
 
 #include "stm32f10x_conf.h"
-#define STAY    2
+#define WAIT    2
 #define UP      1
 #define DOWN    0
 #define RUN     1
 #define STOP    0
+
+enum lift_states_e{
+    LIFT_stop,
+    LIFT_init,
+	LIFT_init_ground,
+	LIFT_init_1st,
+	LIFT_wait,
+	LIFT_run,
+    LIFT_arrive_stop,
+    LIFT_arrive_wait,
+    LIFT_arrive_door_closed
+};
 
 void lift_init(void);
 void lift(void);

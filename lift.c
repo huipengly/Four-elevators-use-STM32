@@ -109,6 +109,8 @@ void lift(void)
                 {
                     if(1 == floor_penal[1][0])
                     {
+                        floor_penal[1][0] = 0;
+                        led_1UL(OFF);
                         lift_states = LIFT_arrive_stop;
                         break;
                     }
@@ -128,6 +130,10 @@ void lift(void)
                 {
                     if((1 == floor_penal[0][1]) || (1 == floor_penal[1][1]))
                     {
+                        floor_penal[0][1] = 0;
+                        floor_penal[1][1] = 0;
+                        led_2UL(OFF);
+                        led_2DL(OFF);
                         lift_states = LIFT_arrive_stop;
                         break;
                     }
@@ -158,6 +164,10 @@ void lift(void)
                 {
                     if((1 == floor_penal[0][2]) || (1 == floor_penal[1][2]))
                     {
+                        floor_penal[0][2] = 0;
+                        floor_penal[1][2] = 0;
+                        led_3UL(OFF);
+                        led_3DL(OFF);
                         lift_states = LIFT_arrive_stop;
                         break;
                     }
@@ -188,6 +198,8 @@ void lift(void)
                 {
                     if(1 == floor_penal[0][3])
                     {
+                        floor_penal[0][3] = 0;
+                        led_4DL(OFF);
                         lift_states = LIFT_arrive_stop;
                         break;
                     }
@@ -223,6 +235,7 @@ void lift(void)
                         if(1 == lift_penal[0])          //如果有到1楼请求
                         {
                             lift_penal[0] = 0;          //清零请求
+                            led_1SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -231,19 +244,19 @@ void lift(void)
                             if(1 == floor_penal[1][0])  //如果1US按下
                             {
                                 floor_penal[1][0] = 0;  //清零请求
+                                led_1UL(OFF);
                                 lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                             }
                             else if(0 == floor_penal[1][0])
                             {
                                 value_run = lift_penal[1] + lift_penal[2] + lift_penal[3];
-                                value_run += floor_penal[0][1] + floor_penal[0][2] + floor_penal[0][3];
                                 value_run += floor_penal[1][1] + floor_penal[1][2] + floor_penal[1][3];
-                                if(0 != value)
+                                if(0 != value_run)
                                 {
                                     up_down_flag = UP;              //电梯向上走
                                 }
-                                else if(0 == value)
+                                else if(0 == value_run)
                                 {
                                     up_down_flag = WAIT;
                                     lift_states = LIFT_wait;        //如果上面没有楼层有请求，则停在当前层。
@@ -256,6 +269,7 @@ void lift(void)
                         if(1 == lift_penal[1])          //如果有到2楼请求
                         {
                             lift_penal[1] = 0;          //清零请求
+                            led_2SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -264,13 +278,13 @@ void lift(void)
                             if(1 == floor_penal[1][1])  //如果2US按下
                             {
                                 floor_penal[1][1] = 0;  //清零请求
+                                led_2UL(OFF);
                                 lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                             }
                             else if(0 == floor_penal[1][1])//2US
                             {
                                 value_run = lift_penal[2] + lift_penal[3];
-                                value_run += floor_penal[0][2] + floor_penal[0][3];
                                 value_run += floor_penal[1][2] + floor_penal[1][3];
                                 if(0 != value_run)
                                 {
@@ -289,6 +303,7 @@ void lift(void)
                         if(1 == lift_penal[2])          //如果有到3楼请求
                         {
                             lift_penal[2] = 0;          //清零请求
+                            led_3SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -297,6 +312,7 @@ void lift(void)
                             if(1 == floor_penal[1][2])  //如果3US按下
                             {
                                 floor_penal[1][2] = 0;  //清零请求
+                                led_3UL(OFF);
                                 lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                             }
@@ -304,7 +320,6 @@ void lift(void)
                             {
                                 value_run = lift_penal[3];
                                 value_run += floor_penal[0][3];
-                                value_run += floor_penal[1][3];
                                 if(0 != value_run)
                                 {
                                     up_down_flag = UP;              //电梯向上走
@@ -322,27 +337,36 @@ void lift(void)
                         if(1 == lift_penal[3])          //如果有到4楼请求
                         {
                             lift_penal[0] = 0;
+                            led_1SWL(OFF);
                             lift_penal[1] = 0;
+                            led_2SWL(OFF);
                             lift_penal[2] = 0;
+                            led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
+                            led_4SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
                         else if(0 == lift_penal[3])     //如果没有到4楼请求,则清零楼层选择，向下运行
                         {
                             lift_penal[0] = 0;
+                            led_1SWL(OFF);
                             lift_penal[1] = 0;
+                            led_2SWL(OFF);
                             lift_penal[2] = 0;
+                            led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
                             if(1 == floor_penal[0][3])  //如果4DS按下
                             {
-                                lift_szates = LIFT_arrive_stop;
+                                floor_penal[0][3] = 0;
+                                led_4DL(OFF);
+                                lift_states = LIFT_arrive_stop;
                             }
                             else if(0 == floor_penal[0][3])
                             {
                                 value_run = 0;
-                                value_run += floor_penal[0][0] + floor_penal[0][1] + floor_penal[0][2] + floor_penal[0][3];
-                                value_run += floor_penal[1][0] + floor_penal[1][1] + floor_penal[1][2] + floor_penal[1][3];
+                                value_run += floor_penal[0][0] + floor_penal[0][1] + floor_penal[0][2];
+                                value_run += floor_penal[1][0] + floor_penal[1][1] + floor_penal[1][2];
                                 if(0 != value_run)          //判断楼下是否有请求，有则下降，没有则等待。
                                 {
                                     up_down_flag = DOWN;
@@ -363,29 +387,46 @@ void lift(void)
                         if(1 == lift_penal[0])          //如果有到1楼请求
                         {
                             lift_penal[0] = 0;
+                            led_1SWL(OFF);
                             lift_penal[1] = 0;
+                            led_2SWL(OFF);
                             lift_penal[2] = 0;
+                            led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
+                            led_4SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
                         else if(0 == lift_penal[0])     //如果没有到1楼请求,则清零楼层选择，向下运行
                         {
                             lift_penal[0] = 0;
+                            led_1SWL(OFF);
                             lift_penal[1] = 0;
+                            led_2SWL(OFF);
                             lift_penal[2] = 0;
+                            led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
-                            value_run = 0;
-                            value_run += floor_penal[0][0] + floor_penal[0][1] + floor_penal[0][2] + floor_penal[0][3];
-                            value_run += floor_penal[1][0] + floor_penal[1][1] + floor_penal[1][2] + floor_penal[1][3];
-                            if(0 != value_run)          //判断楼下是否有请求，有则下降，没有则等待。
+                            led_4SWL(OFF);
+                            if(1 == floor_penal[1][0])  //如果1US按下
                             {
-                                up_down_flag = UP;
+                                floor_penal[1][0] = 0;
+                                led_1UL(OFF);
+                                lift_states = LIFT_arrive_stop;
                             }
-                            else if(0 == value_run)
+                            else if(0 == floor_penal[1][0])
                             {
-                                up_down_flag = WAIT;
-                                lift_states = LIFT_wait;
+                                value_run = 0;
+                                value_run += floor_penal[0][1] + floor_penal[0][2] + floor_penal[0][3];
+                                value_run += floor_penal[1][1] + floor_penal[1][2] + floor_penal[1][3];
+                                if(0 != value_run)          //判断楼上是否有请求，有则上升，没有则等待。
+                                {
+                                    up_down_flag = UP;
+                                }
+                                else if(0 == value_run)
+                                {
+                                    up_down_flag = WAIT;
+                                    lift_states = LIFT_wait;
+                                }
                             }
                         }
                     }
@@ -394,43 +435,112 @@ void lift(void)
                         if(1 == lift_penal[1])          //如果有到2楼请求
                         {
                             lift_penal[1] = 0;          //清零请求
+                            led_2SWL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
                         else if(0 == lift_penal[1])     //如果没有到2楼请求
                         {
-                            if(1 == floor_penal[1][1])  //如果2DS按下
+                            if(1 == floor_penal[0][1])  //如果2DS按下
                             {
-                                floor_penal[1][1] = 0;  //清零请求
+                                floor_penal[0][1] = 0;  //清零请求
+                                led_2DL(OFF);
                                 lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                             }
-                            else if(0 == floor_penal[1][1])//2US
+                            else if(0 == floor_penal[0][1])//2DS
                             {
                                 value_run = lift_penal[0];
-                                value_run += floor_penal[0][0];
                                 value_run += floor_penal[1][0];
                                 if(0 != value_run)
                                 {
-                                    up_down_flag = UP;              //电梯向上走
+                                    up_down_flag = DOWN;            //电梯向下走
                                 }
                                 else if(0 == value_run)
                                 {
                                     up_down_flag = WAIT;
-                                    lift_states = LIFT_wait;        //如果上面没有楼层有请求，则停在当前层。
+                                    lift_states = LIFT_wait;        //如果下面没有楼层有请求，则停在当前层。
                                 }
                             }
                         }
                     }
                     if(3 == lift_floor)
                     {
-                        
+                        if(1 == lift_penal[2])          //如果有到3楼请求
+                        {
+                            lift_penal[2] = 0;          //清零请求
+                            led_3SWL(OFF);
+                            lift_states = LIFT_arrive_stop;
+                                                        //跳转到电梯到达状态
+                        }
+                        else if(0 == lift_penal[2])     //如果没有到3楼请求
+                        {
+                            if(1 == floor_penal[0][2])  //如果3DS按下
+                            {
+                                floor_penal[0][2] = 0;  //清零请求
+                                led_3DL(OFF);
+                                lift_states = LIFT_arrive_stop;
+                                                        //跳转到电梯到达状态
+                            }
+                            else if(0 == floor_penal[0][2])//3DS
+                            {
+                                value_run = lift_penal[0] + lift_penal[1];
+                                value_run += floor_penal[0][0] + floor_penal[0][1];
+                                if(0 != value_run)
+                                {
+                                    up_down_flag = DOWN;            //电梯向下走
+                                }
+                                else if(0 == value_run)
+                                {
+                                    up_down_flag = WAIT;
+                                    lift_states = LIFT_wait;        //如果下面没有楼层有请求，则停在当前层。
+                                }
+                            }
+                        }
                     }
                     if(4 == lift_floor)
                     {
-                        
+                        if(1 == lift_penal[3])          //如果有到4楼请求
+                        {
+                            lift_penal[3] = 0;          //清零请求
+                            led_4SWL(OFF);
+                            lift_states = LIFT_arrive_stop;
+                                                        //跳转到电梯到达状态
+                        }
+                        else if(0 == lift_penal[3])     //如果没有到4楼请求
+                        {
+                            if(1 == floor_penal[0][3])  //如果4DS按下
+                            {
+                                floor_penal[0][3] = 0;  //清零请求
+                                led_4DL(OFF);
+                                lift_states = LIFT_arrive_stop;
+                                                        //跳转到电梯到达状态
+                            }
+                            else if(0 == floor_penal[0][3])//4DS
+                            {
+                                value_run = lift_penal[0] + lift_penal[1] + lift_penal[2];
+                                value_run += floor_penal[0][0] + floor_penal[0][1] + floor_penal[0][2];
+                                if(0 != value_run)
+                                {
+                                    up_down_flag = DOWN;            //电梯向下走
+                                }
+                                else if(0 == value_run)
+                                {
+                                    up_down_flag = WAIT;
+                                    lift_states = LIFT_wait;        //如果下面没有楼层有请求，则停在当前层。
+                                }
+                            }
+                        }
                     }
                 }
+                if(-1 == pre_lift_floor)
+                {
+                    if(pre_up_down_flag == up_down_flag)
+                    {
+                        pre_up_down_flag = WAIT;
+                    }
+                }
+                pre_lift_floor = lift_floor;
             }
             else if(pre_lift_floor == lift_floor)//还没有楼层变化
             {
@@ -438,7 +548,6 @@ void lift(void)
             }
             break;
         case LIFT_arrive_stop:                  //停止，开门
-            //TODO:处理当前楼层的US/DS
             lift_motor_stop();
             door_motor_open();
             lift_states = LIFT_arrive_wait;
@@ -451,13 +560,17 @@ void lift(void)
                 {
                     //报警
                     //停止运行
+                    door_open_time = 0;
+                    led_STATE(ON);
                 }
             }
             else if(1 == door_opened)           //判断是否完全打开
             {
+                door_motor_stop();
                 ++wait_time;
                 if(20 == wait_time)             //等待2s，关门
                 {
+                    wait_time = 0;
                     door_motor_close();
                     lift_states = LIFT_arrive_door_closed;
                 }
@@ -471,6 +584,8 @@ void lift(void)
                 {
                     //报警
                     //停止运行
+                    door_close_time = 0;
+                    led_STATE(ON);
                 }
             }
             if(1 == door_closed)
@@ -479,6 +594,8 @@ void lift(void)
                 if((UP == up_down_flag) || (DOWN == up_down_flag))
                 {
                     lift_states = LIFT_run;
+                    pre_lift_floor = -1;            //强行造成run里到达新楼层
+//                    pre_up_down_flag = WAIT;
                 }
                 else if(WAIT == up_down_flag)
                 {
@@ -498,21 +615,39 @@ void lift(void)
             break;
     }
     
-    if(pre_up_down_flag != up_down_flag)
+    if((lift_states != LIFT_arrive_stop) && (lift_states != LIFT_arrive_wait) && (lift_states != LIFT_arrive_door_closed))
     {
-        pre_up_down_flag = up_down_flag;
-        switch(up_down_flag)
+        if(pre_up_down_flag != up_down_flag)
         {
-            case DOWN:
-                lift_motor_down();
-                break;
-            case UP:
-                lift_motor_up();
-                break;
-            case WAIT:
-                lift_motor_stop();
-                break;
+            pre_up_down_flag = up_down_flag;
+            switch(up_down_flag)
+            {
+                case DOWN:
+                    lift_motor_down();
+                    break;
+                case UP:
+                    lift_motor_up();
+                    break;
+                case WAIT:
+                    lift_motor_stop();
+                    break;
+            }
         }
+//        if(-1 == pre_lift_floor)
+//        {
+//            switch(up_down_flag)
+//            {
+//                case DOWN:
+//                    lift_motor_down();
+//                    break;
+//                case UP:
+//                    lift_motor_up();
+//                    break;
+//                case WAIT:
+//                    lift_motor_stop();
+//                    break;
+//            }
+//        }
     }
 }
 
