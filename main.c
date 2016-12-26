@@ -54,16 +54,16 @@ void run()
 //    static uint32_t stop_time = 0;
     if(time_10ms >= 10)  //10ms
     {
-        key_scan();
         time_10ms = 0;
+        key_scan();
     }
     
     if(time_100ms >= 100)
     {
+        time_100ms = 0;
         state = !state;
         led_STATE(state);
         lift();
-        time_100ms = 0;
     }
     
 //    if(time_100ms >= 100)  //100ms

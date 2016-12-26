@@ -105,6 +105,14 @@ void lift(void)
         case LIFT_wait:                         //判断是否继续等待
 //            if(WAIT == up_down_flag)
 //            {
+        
+                if(1 == door_open)
+                {
+                    door_open = 0;
+                    door_motor_open();
+                    led_OPENL(OFF);
+                    lift_states = LIFT_arrive_wait;
+                }
                 if(1 == lift_floor)
                 {
                     if(1 == floor_penal[1][0])
@@ -236,6 +244,8 @@ void lift(void)
                         {
                             lift_penal[0] = 0;          //清零请求
                             led_1SWL(OFF);
+                            floor_penal[1][0] = 0;  //清零请求
+                            led_1UL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -270,6 +280,8 @@ void lift(void)
                         {
                             lift_penal[1] = 0;          //清零请求
                             led_2SWL(OFF);
+                            floor_penal[1][1] = 0;  //清零请求
+                            led_2UL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -304,6 +316,8 @@ void lift(void)
                         {
                             lift_penal[2] = 0;          //清零请求
                             led_3SWL(OFF);
+                            floor_penal[1][2] = 0;  //清零请求
+                            led_3UL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -344,6 +358,8 @@ void lift(void)
                             led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
                             led_4SWL(OFF);
+                            floor_penal[0][3] = 0;
+                            led_4DL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -394,6 +410,8 @@ void lift(void)
                             led_3SWL(OFF);
                             lift_penal[3] = 0;          //清零请求
                             led_4SWL(OFF);
+                            floor_penal[1][0] = 0;
+                            led_1UL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -436,6 +454,8 @@ void lift(void)
                         {
                             lift_penal[1] = 0;          //清零请求
                             led_2SWL(OFF);
+                            floor_penal[0][1] = 0;  //清零请求
+                            led_2DL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -470,6 +490,8 @@ void lift(void)
                         {
                             lift_penal[2] = 0;          //清零请求
                             led_3SWL(OFF);
+                            floor_penal[0][2] = 0;  //清零请求
+                            led_3DL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -504,6 +526,8 @@ void lift(void)
                         {
                             lift_penal[3] = 0;          //清零请求
                             led_4SWL(OFF);
+                            floor_penal[0][3] = 0;  //清零请求
+                            led_4DL(OFF);
                             lift_states = LIFT_arrive_stop;
                                                         //跳转到电梯到达状态
                         }
@@ -568,6 +592,13 @@ void lift(void)
             {
                 door_motor_stop();
                 ++wait_time;
+                //关门按下强行wait_time=20
+                if(1 == door_close)
+                {
+                    door_close = 0;
+                    led_CLOSEL(OFF);
+                    wait_time = 20;
+                }
                 if(20 == wait_time)             //等待2s，关门
                 {
                     wait_time = 0;
@@ -586,6 +617,14 @@ void lift(void)
                     //停止运行
                     door_close_time = 0;
                     led_STATE(ON);
+                }
+                //开门，跳转会上一个状态
+                if(1 == door_open)
+                {
+                    door_open = 0;
+                    door_motor_open();
+                    led_OPENL(OFF);
+                    lift_states = LIFT_arrive_wait;
                 }
             }
             if(1 == door_closed)
@@ -624,12 +663,21 @@ void lift(void)
             {
                 case DOWN:
                     lift_motor_down();
+                    led_UL(OFF);
+                    led_DL(ON);
+                    led_LIGHT(ON);
                     break;
                 case UP:
                     lift_motor_up();
+                    led_UL(ON);
+                    led_DL(OFF);
+                    led_LIGHT(ON);
                     break;
                 case WAIT:
                     lift_motor_stop();
+                    led_UL(OFF);
+                    led_DL(OFF);
+                    led_LIGHT(OFF);
                     break;
             }
         }

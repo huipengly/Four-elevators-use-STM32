@@ -94,26 +94,26 @@ void lift_motor_wait(void)
 void lift_motor_up(void)
 {
     lift_motor_wait();
-    TIM2->CCR1 = 900;
+    TIM2->CCR1 = 500;
     TIM2->CCR2 = 0;
     TIM2->CCR3 = 0;
-    TIM2->CCR4 = 900;
+    TIM2->CCR4 = 500;
 }
 
 void lift_motor_down(void)
 {
     lift_motor_wait();
     TIM2->CCR1 = 0;
-    TIM2->CCR2 = 900;
-    TIM2->CCR3 = 900;
+    TIM2->CCR2 = 400;
+    TIM2->CCR3 = 400;
     TIM2->CCR4 = 0;
 }
 
 void lift_motor_stop(void)
 {
     lift_motor_wait();
-    TIM2->CCR1 = 1000;
-    TIM2->CCR2 = 1000;
+    TIM2->CCR1 = 0;
+    TIM2->CCR2 = 0;
     TIM2->CCR3 = 0;
     TIM2->CCR4 = 0;
 }
@@ -146,26 +146,26 @@ void door_motor_wait(void)
 void door_motor_open(void)
 {
     door_motor_wait();
-    TIM3->CCR1 = 500;
+    TIM3->CCR1 = 700;
     TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
-    TIM3->CCR4 = 500;
+    TIM3->CCR4 = 700;
 }
 
 void door_motor_close(void)
 {
     door_motor_wait();
     TIM3->CCR1 = 0;
-    TIM3->CCR2 = 500;
-    TIM3->CCR3 = 500;
+    TIM3->CCR2 = 700;
+    TIM3->CCR3 = 700;
     TIM3->CCR4 = 0;
 }
 
 void door_motor_stop(void)
 {
     door_motor_wait();
-    TIM3->CCR1 = 1000;
-    TIM3->CCR2 = 1000;
+    TIM3->CCR1 = 0;
+    TIM3->CCR2 = 0;
     TIM3->CCR3 = 0;
     TIM3->CCR4 = 0;
 }
